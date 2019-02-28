@@ -1,0 +1,67 @@
+package com.demin.alexandr.assistant.ui.fragments;
+
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.demin.alexandr.assistant.R;
+import com.demin.alexandr.assistant.mvp.presentation.LoginPresenter;
+import com.demin.alexandr.assistant.mvp.view.LoginView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class LoginFragment extends MvpAppCompatFragment implements LoginView {
+
+    @InjectPresenter
+    LoginPresenter presenter;
+
+    @BindView(R.id.fr_login_field_login)
+    EditText fieldLogin;
+    @BindView(R.id.fr_login_field_password)
+    EditText fieldPassword;
+
+    public static LoginFragment newInstance(Bundle args) {
+        LoginFragment fragment = new LoginFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @OnClick(R.id.fr_login_btn_login)
+    @Override
+    public void loginPressed() {
+        presenter.login(this.fieldLogin.getText().toString()
+                , this.fieldPassword.getText().toString());
+    }
+
+    @OnClick(R.id.fr_login_text_forgot_pass)
+    @Override
+    public void forgotPassPressed() {
+        presenter.moveToForgotPassFragment();
+    }
+
+    @OnClick(R.id.fr_login_text_register)
+    @Override
+    public void registrationPressed() {
+        presenter.moveToRegistrationFragment();
+    }
+}
