@@ -1,12 +1,7 @@
 package com.demin.alexandr.assistant.ui.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -19,7 +14,6 @@ import javax.inject.Inject;
 
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
-import ru.terrakok.cicerone.Router;
 import ru.terrakok.cicerone.android.support.SupportAppNavigator;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView {

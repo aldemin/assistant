@@ -6,4 +6,5 @@ public interface LoginView extends MvpView {
     void loginPressed();
     void forgotPassPressed();
     void registrationPressed();
+    void showErrorMessage(String message);
 }

@@ -2,6 +2,7 @@ package com.demin.alexandr.assistant.ui.fragments;
 
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.demin.alexandr.assistant.R;
 import com.demin.alexandr.assistant.mvp.presentation.LoginPresenter;
 import com.demin.alexandr.assistant.mvp.view.LoginView;
@@ -27,10 +29,17 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView {
     @BindView(R.id.fr_login_field_password)
     EditText fieldPassword;
 
+    private View view;
+
     public static LoginFragment newInstance(Bundle args) {
         LoginFragment fragment = new LoginFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @ProvidePresenter
+    public LoginPresenter loginPresenter() {
+        return new LoginPresenter(getContext());
     }
 
     @Override
@@ -41,9 +50,15 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        this.view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        this.view = null;
     }
 
     @OnClick(R.id.fr_login_btn_login)
@@ -63,5 +78,10 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView {
     @Override
     public void registrationPressed() {
         presenter.moveToRegistrationFragment();
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        Snackbar.make(this.view, message, Snackbar.LENGTH_LONG).show();
     }
 }

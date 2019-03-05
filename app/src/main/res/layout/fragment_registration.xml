@@ -22,15 +22,6 @@
             app:roundedCorners="true" />
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
-            android:id="@+id/fr_registration_field_login"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:hint="@string/login"
-            android:layout_margin="10dp"
-            android:inputType=""
-            app:roundedCorners="true"/>
-
-        <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/fr_registration_field_email"
             android:layout_width="300dp"
             android:layout_height="50dp"

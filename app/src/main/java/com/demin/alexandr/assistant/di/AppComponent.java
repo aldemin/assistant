@@ -1,6 +1,7 @@
 package com.demin.alexandr.assistant.di;
 
 import com.demin.alexandr.assistant.di.modules.AppModule;
+import com.demin.alexandr.assistant.di.modules.AuthModule;
 import com.demin.alexandr.assistant.di.modules.ConstantsModule;
 import com.demin.alexandr.assistant.di.modules.NavigationModule;
 import com.demin.alexandr.assistant.mvp.presentation.LoginPresenter;
@@ -17,7 +18,8 @@ import dagger.Component;
 @Component(modules ={
         AppModule.class,
         NavigationModule.class,
-        ConstantsModule.class
+        ConstantsModule.class,
+        AuthModule.class
 })
 public interface AppComponent {
     void inject(MainActivity mainActivity);
