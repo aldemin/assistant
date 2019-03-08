@@ -6,7 +6,6 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.demin.alexandr.assistant.App;
-import com.demin.alexandr.assistant.mvp.model.Constants;
 import com.demin.alexandr.assistant.mvp.view.RegistrationView;
 import com.demin.alexandr.assistant.ui.Screens;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,11 +20,11 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView> {
     @Inject
     Router router;
     @Inject
-    Constants constants;
-    @Inject
     FirebaseAuth firebaseAuth;
 
     private Context context;
+
+    private final String emptyString = "";
 
     public RegistrationPresenter(Context context) {
         this.context = context;
@@ -44,6 +43,9 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView> {
     }
 
     public void registrationPressed(String name, String email, String password, String passwordConfirm) {
+        if (email.trim().equals(this.emptyString) || password.trim().equals(this.emptyString)) {
+            showErrorMessage("Email or password is empty");
+        }
         if (!password.equals(passwordConfirm)) {
             showErrorMessage("Password");
         } else {
@@ -59,15 +61,15 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView> {
         }
     }
 
-    public void showErrorMessage(String message) {
+    private void showErrorMessage(String message) {
         getViewState().showErrorMessage(message);
     }
 
     public void cancelPressed() {
-        router.backTo(new Screens.LoginFragmentScreen(constants.getEmptyBundle()));
+        router.backTo(new Screens.LoginFragmentScreen());
     }
 
-    public void moveToPassFragment() {
-        router.newRootScreen(new Screens.PassFragmentScreen(constants.getEmptyBundle()));
+    private void moveToPassFragment() {
+        router.newRootScreen(new Screens.PassFragmentScreen());
     }
 }

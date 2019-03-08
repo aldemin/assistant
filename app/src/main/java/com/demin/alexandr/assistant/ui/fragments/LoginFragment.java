@@ -1,11 +1,13 @@
 package com.demin.alexandr.assistant.ui.fragments;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -14,6 +16,9 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.demin.alexandr.assistant.R;
 import com.demin.alexandr.assistant.mvp.presentation.LoginPresenter;
 import com.demin.alexandr.assistant.mvp.view.LoginView;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,8 +33,20 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView {
     EditText fieldLogin;
     @BindView(R.id.fr_login_field_password)
     EditText fieldPassword;
+    @BindView(R.id.fr_login_check_remember_me)
+    CheckBox rememberMe;
+
+    @Inject
+    SharedPreferences sharedPreferences;
+    @Inject
+    @Named("Remember me")
+    String rememberMeTag;
 
     private View view;
+
+    public static LoginFragment newInstance() {
+        return new LoginFragment();
+    }
 
     public static LoginFragment newInstance(Bundle args) {
         LoginFragment fragment = new LoginFragment();
@@ -64,8 +81,9 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView {
     @OnClick(R.id.fr_login_btn_login)
     @Override
     public void loginPressed() {
-        presenter.login(this.fieldLogin.getText().toString()
-                , this.fieldPassword.getText().toString());
+        presenter.login(this.fieldLogin.getText().toString(),
+                this.fieldPassword.getText().toString(),
+                this.rememberMe.isChecked());
     }
 
     @OnClick(R.id.fr_login_text_forgot_pass)

@@ -53,4 +53,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         super.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.singOutFirebaseUser();
+    }
 }

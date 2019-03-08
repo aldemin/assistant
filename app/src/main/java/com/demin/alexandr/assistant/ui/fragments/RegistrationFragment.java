@@ -35,6 +35,10 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
 
     private View view;
 
+    public static RegistrationFragment newInstance() {
+        return new RegistrationFragment();
+    }
+
     public static RegistrationFragment newInstance(Bundle args) {
         RegistrationFragment fragment = new RegistrationFragment();
         fragment.setArguments(args);

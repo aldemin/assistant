@@ -30,6 +30,10 @@ public class PassFragment extends MvpAppCompatFragment implements PassView {
 
     private PassListAdapter passListAdapter;
 
+    public static PassFragment newInstance() {
+        return new PassFragment();
+    }
+
     public static PassFragment newInstance(Bundle args) {
         PassFragment fragment = new PassFragment();
         fragment.setArguments(args);

@@ -15,13 +15,20 @@ public class Screens {
 
         private Bundle bundle;
 
+        public LoginFragmentScreen() {
+
+        }
+
         public LoginFragmentScreen(Bundle bundle) {
             this.bundle = bundle;
         }
 
         @Override
         public Fragment getFragment() {
-            return LoginFragment.newInstance(bundle);
+            if (this.bundle != null) {
+                return LoginFragment.newInstance(bundle);
+            }
+            return LoginFragment.newInstance();
         }
     }
 
@@ -29,13 +36,20 @@ public class Screens {
 
         private Bundle bundle;
 
+        public RegistrationFragmentScreen() {
+
+        }
+
         public RegistrationFragmentScreen(Bundle bundle) {
             this.bundle = bundle;
         }
 
         @Override
         public Fragment getFragment() {
-            return RegistrationFragment.newInstance(bundle);
+            if (this.bundle != null) {
+                return RegistrationFragment.newInstance(bundle);
+            }
+            return RegistrationFragment.newInstance();
         }
     }
 
@@ -43,13 +57,20 @@ public class Screens {
 
         private Bundle bundle;
 
+        public PassFragmentScreen() {
+            this.bundle = bundle;
+        }
+
         public PassFragmentScreen(Bundle bundle) {
             this.bundle = bundle;
         }
 
         @Override
         public Fragment getFragment() {
-            return PassFragment.newInstance(bundle);
+            if (this.bundle != null) {
+                return PassFragment.newInstance(bundle);
+            }
+            return PassFragment.newInstance();
         }
     }
 

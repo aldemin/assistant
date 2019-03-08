@@ -5,6 +5,7 @@ import android.app.Application;
 import com.demin.alexandr.assistant.di.AppComponent;
 import com.demin.alexandr.assistant.di.DaggerAppComponent;
 import com.demin.alexandr.assistant.di.modules.AppModule;
+import com.demin.alexandr.assistant.di.modules.AppSettingsModule;
 
 public class App extends Application {
     private static App instance;
@@ -17,6 +18,7 @@ public class App extends Application {
 
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
+                .appSettingsModule(new AppSettingsModule(this))
                 .build();
     }
 

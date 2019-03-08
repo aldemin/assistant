@@ -3,7 +3,6 @@ package com.demin.alexandr.assistant.mvp.presentation;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.demin.alexandr.assistant.App;
-import com.demin.alexandr.assistant.mvp.model.Constants;
 import com.demin.alexandr.assistant.mvp.model.entity.Pass;
 import com.demin.alexandr.assistant.mvp.model.entity.UnlimitedPass;
 import com.demin.alexandr.assistant.mvp.view.PassView;
@@ -21,8 +20,6 @@ public class PassPresenter extends MvpPresenter<PassView> {
 
     @Inject
     Router router;
-    @Inject
-    Constants constants;
 
     private List<Pass> passes = new ArrayList<>();
     private PassListPresenter passListPresenter = new PassListPresenter();

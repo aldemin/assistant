@@ -17,7 +17,8 @@
             android:id="@+id/fr_login_field_login"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:hint="@string/login"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
             android:layout_margin="10dp"
             app:roundedCorners="true"/>
 
@@ -27,7 +28,17 @@
             android:layout_height="50dp"
             android:hint="@string/password"
             android:layout_margin="10dp"
+            android:inputType="textPassword"
             app:roundedCorners="true"/>
+
+        <CheckBox
+            android:id="@+id/fr_login_check_remember_me"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/remember_me"
+             />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/fr_login_btn_login"
