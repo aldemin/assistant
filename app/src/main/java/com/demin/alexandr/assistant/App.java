@@ -6,6 +6,8 @@ import com.demin.alexandr.assistant.di.AppComponent;
 import com.demin.alexandr.assistant.di.DaggerAppComponent;
 import com.demin.alexandr.assistant.di.modules.AppModule;
 import com.demin.alexandr.assistant.di.modules.AppSettingsModule;
+import com.demin.alexandr.assistant.di.modules.DbModule;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class App extends Application {
     private static App instance;
@@ -19,6 +21,7 @@ public class App extends Application {
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .appSettingsModule(new AppSettingsModule(this))
+                .dbModule(new DbModule(initFirestoreSettings()))
                 .build();
     }
 
@@ -28,5 +31,11 @@ public class App extends Application {
 
     public AppComponent getAppComponent() {
         return appComponent;
+    }
+
+    private FirebaseFirestoreSettings initFirestoreSettings() {
+        return new FirebaseFirestoreSettings.Builder()
+                .setTimestampsInSnapshotsEnabled(true)
+                .build();
     }
 }
