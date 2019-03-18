@@ -8,7 +8,8 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.demin.alexandr.assistant.App;
 import com.demin.alexandr.assistant.mvp.view.LoginView;
-import com.demin.alexandr.assistant.ui.Screens;
+import com.demin.alexandr.assistant.ui.Screens.MainScreens;
+import com.demin.alexandr.assistant.utils.ToolbarManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
@@ -28,6 +29,8 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
     @Inject
     @Named("Remember me")
     String rememberMeTag;
+    @Inject
+    ToolbarManager toolbarManager;
 
     private Context context;
 
@@ -39,6 +42,7 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
         App.getInstance().getAppComponent().inject(LoginPresenter.this);
+        toolbarManager.toolbarGone();
     }
 
     public void login(String email, String password, boolean isRememberMe) {
@@ -50,7 +54,7 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
                     .addOnCompleteListener((Activity) context, task -> {
                         if (task.isSuccessful()) {
                             sharedPreferences.edit().putBoolean(rememberMeTag, isRememberMe).apply();
-                            moveToPassFragment();
+                            moveToMainFragment();
                         } else {
                             showErrorMessage(task.getException().getMessage());
                         }
@@ -63,14 +67,14 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
     }
 
     public void moveToRegistrationFragment() {
-        router.navigateTo(new Screens.RegistrationFragmentScreen());
+        router.navigateTo(new MainScreens.RegistrationFragmentScreen());
     }
 
     public void moveToForgotPassFragment() {
 
     }
 
-    public void moveToPassFragment() {
-        router.newRootScreen(new Screens.PassFragmentScreen());
+    public void moveToMainFragment() {
+        router.newRootScreen(new MainScreens.MainFragmentScreen());
     }
 }

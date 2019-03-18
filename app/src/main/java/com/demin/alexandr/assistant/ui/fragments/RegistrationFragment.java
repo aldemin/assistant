@@ -67,8 +67,7 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
     @OnClick(R.id.fr_registration_btn_register)
     @Override
     public void registrationPressed() {
-        presenter.registrationPressed(fieldName.getText().toString(),
-                fieldEmail.getText().toString(),
+        presenter.registrationPressed(fieldEmail.getText().toString(),
                 fieldPassword.getText().toString(),
                 fieldPasswordConfirm.getText().toString());
     }
@@ -83,4 +82,5 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
     public void showErrorMessage(String message) {
         Snackbar.make(this.view, message, Snackbar.LENGTH_LONG).show();
     }
+
 }

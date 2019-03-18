@@ -1,15 +1,15 @@
-package com.demin.alexandr.assistant.ui;
+package com.demin.alexandr.assistant.ui.Screens;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.demin.alexandr.assistant.ui.fragments.LoginFragment;
-import com.demin.alexandr.assistant.ui.fragments.PassFragment;
+import com.demin.alexandr.assistant.ui.fragments.MainFragment;
 import com.demin.alexandr.assistant.ui.fragments.RegistrationFragment;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
-public class Screens {
+public class MainScreens {
 
     public static class LoginFragmentScreen extends SupportAppScreen {
 
@@ -53,25 +53,23 @@ public class Screens {
         }
     }
 
-    public static class PassFragmentScreen extends SupportAppScreen {
+    public static class MainFragmentScreen extends SupportAppScreen {
 
         private Bundle bundle;
 
-        public PassFragmentScreen() {
-            this.bundle = bundle;
+        public MainFragmentScreen() {
         }
 
-        public PassFragmentScreen(Bundle bundle) {
+        public MainFragmentScreen(Bundle bundle) {
             this.bundle = bundle;
         }
 
         @Override
         public Fragment getFragment() {
             if (this.bundle != null) {
-                return PassFragment.newInstance(bundle);
+                return MainFragment.newInstance(this.bundle);
             }
-            return PassFragment.newInstance();
+            return MainFragment.newInstance();
         }
     }
-
 }

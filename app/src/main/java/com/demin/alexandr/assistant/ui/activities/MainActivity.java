@@ -1,6 +1,7 @@
 package com.demin.alexandr.assistant.ui.activities;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -9,9 +10,12 @@ import com.demin.alexandr.assistant.App;
 import com.demin.alexandr.assistant.R;
 import com.demin.alexandr.assistant.mvp.presentation.MainPresenter;
 import com.demin.alexandr.assistant.mvp.view.MainView;
+import com.demin.alexandr.assistant.utils.ToolbarManager;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.android.support.SupportAppNavigator;
@@ -23,6 +27,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     @Inject
     NavigatorHolder navigatorHolder;
+    @Inject
+    ToolbarManager toolbarManager;
+
+    @BindView(R.id.ac_main_toolbar)
+    Toolbar toolbar;
 
     private Navigator navigator = new SupportAppNavigator(this, R.id.ac_main_container);
 
@@ -31,6 +40,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         App.getInstance().getAppComponent().inject(MainActivity.this);
+        ButterKnife.bind(this);
+        initToolbar();
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(toolbar);
+        toolbarManager.init(toolbar);
     }
 
     @Override
@@ -44,6 +60,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
+        setSupportActionBar(toolbar);
         navigatorHolder.setNavigator(navigator);
     }
 
