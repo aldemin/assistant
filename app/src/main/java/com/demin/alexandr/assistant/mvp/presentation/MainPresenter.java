@@ -6,7 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.demin.alexandr.assistant.App;
 import com.demin.alexandr.assistant.mvp.view.MainView;
-import com.demin.alexandr.assistant.ui.Screens;
+import com.demin.alexandr.assistant.ui.Screens.MainScreens;
 import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
@@ -53,7 +53,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
         if (firebaseAuth.getCurrentUser() == null) {
             moveToLoginScreen();
         } else {
-            moveToPassScreen();
+            moveToMainScreen();
         }
     }
 
@@ -63,12 +63,12 @@ public class MainPresenter extends MvpPresenter<MainView> {
         }
     }
 
-    private void moveToPassScreen() {
-        router.replaceScreen(new Screens.PassFragmentScreen());
+    private void moveToMainScreen() {
+        router.replaceScreen(new MainScreens.MainFragmentScreen());
     }
 
     private void moveToLoginScreen() {
-        router.replaceScreen(new Screens.LoginFragmentScreen());
+        router.replaceScreen(new MainScreens.LoginFragmentScreen());
     }
 
     public void backPressed() {

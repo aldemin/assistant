@@ -7,6 +7,7 @@ import com.demin.alexandr.assistant.mvp.model.entity.Pass;
 import com.demin.alexandr.assistant.mvp.model.entity.UnlimitedPass;
 import com.demin.alexandr.assistant.mvp.view.PassView;
 import com.demin.alexandr.assistant.recycle.viewholder.PassListViewHolder;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ public class PassPresenter extends MvpPresenter<PassView> {
 
     @Inject
     Router router;
+    @Inject
+    FirebaseFirestore firestore;
 
     private List<Pass> passes = new ArrayList<>();
     private PassListPresenter passListPresenter = new PassListPresenter();

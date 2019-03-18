@@ -22,6 +22,8 @@ import butterknife.OnClick;
 
 public class PassFragment extends MvpAppCompatFragment implements PassView {
 
+    public static final String NAME = "PassFragment";
+
     @InjectPresenter
     PassPresenter presenter;
 

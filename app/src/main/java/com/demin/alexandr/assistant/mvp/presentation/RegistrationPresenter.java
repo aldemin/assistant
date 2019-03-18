@@ -7,7 +7,8 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.demin.alexandr.assistant.App;
 import com.demin.alexandr.assistant.mvp.view.RegistrationView;
-import com.demin.alexandr.assistant.ui.Screens;
+import com.demin.alexandr.assistant.ui.Screens.MainScreens;
+import com.demin.alexandr.assistant.utils.ToolbarManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
@@ -21,6 +22,8 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView> {
     Router router;
     @Inject
     FirebaseAuth firebaseAuth;
+    @Inject
+    ToolbarManager toolbarManager;
 
     private Context context;
 
@@ -34,6 +37,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView> {
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
         App.getInstance().getAppComponent().inject(RegistrationPresenter.this);
+        toolbarManager.toolbarGone();
     }
 
     @Override
@@ -42,7 +46,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView> {
         this.context = null;
     }
 
-    public void registrationPressed(String name, String email, String password, String passwordConfirm) {
+    public void registrationPressed(String email, String password, String passwordConfirm) {
         if (email.trim().equals(this.emptyString) || password.trim().equals(this.emptyString)) {
             showErrorMessage("Email or password is empty");
         }
@@ -53,7 +57,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView> {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Activity) context, task -> {
                         if (task.isSuccessful()) {
-                            moveToPassFragment();
+                            moveToMainFragment();
                         } else {
                             showErrorMessage(task.getException().getMessage());
                         }
@@ -66,10 +70,11 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView> {
     }
 
     public void cancelPressed() {
-        router.backTo(new Screens.LoginFragmentScreen());
+        router.backTo(new MainScreens.LoginFragmentScreen());
     }
 
-    private void moveToPassFragment() {
-        router.newRootScreen(new Screens.PassFragmentScreen());
+    private void moveToMainFragment() {
+        router.newRootScreen(new MainScreens.MainFragmentScreen());
     }
+
 }

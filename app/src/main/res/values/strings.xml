@@ -16,4 +16,6 @@
     <string name="cancel">Cancel</string>
     <string name="remember_me">Remember me</string>
     <string name="remember_password">Remember password</string>
+    <string name="my_templates">My templates</string>
+    <string name="passes">Passes</string>
 </resources>
