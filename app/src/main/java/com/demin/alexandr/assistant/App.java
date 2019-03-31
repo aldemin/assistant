@@ -6,8 +6,9 @@ import com.demin.alexandr.assistant.di.AppComponent;
 import com.demin.alexandr.assistant.di.DaggerAppComponent;
 import com.demin.alexandr.assistant.di.modules.AppModule;
 import com.demin.alexandr.assistant.di.modules.AppSettingsModule;
-import com.demin.alexandr.assistant.di.modules.DbModule;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+
+import io.paperdb.Paper;
 
 public class App extends Application {
     private static App instance;
@@ -18,10 +19,11 @@ public class App extends Application {
         super.onCreate();
         App.instance = this;
 
+        Paper.init(this);
+
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .appSettingsModule(new AppSettingsModule(this))
-                .dbModule(new DbModule(initFirestoreSettings()))
                 .build();
     }
 

@@ -1,7 +1,7 @@
 package com.demin.alexandr.assistant.di.modules;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 import javax.inject.Singleton;
 
@@ -10,14 +10,17 @@ import dagger.Provides;
 
 @Module
 @Singleton
-public class DbModule {
+public class FirebaseModule {
 
-    public DbModule(FirebaseFirestoreSettings settings) {
-        FirebaseFirestore.getInstance().setFirestoreSettings(settings);
+    @Provides
+    @Singleton
+    public FirebaseAuth getAuth() {
+        return FirebaseAuth.getInstance();
     }
 
     @Provides
-    public FirebaseFirestore getFirestore() {
+    @Singleton
+    public FirebaseFirestore firestore() {
         return FirebaseFirestore.getInstance();
     }
 

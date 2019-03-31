@@ -1,4 +1,4 @@
-package com.demin.alexandr.assistant.ui.Screens;
+package com.demin.alexandr.assistant.ui.screens;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

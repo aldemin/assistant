@@ -4,9 +4,8 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.demin.alexandr.assistant.App;
 import com.demin.alexandr.assistant.mvp.model.entity.Pass;
-import com.demin.alexandr.assistant.mvp.model.entity.UnlimitedPass;
 import com.demin.alexandr.assistant.mvp.view.PassView;
-import com.demin.alexandr.assistant.recycle.viewholder.PassListViewHolder;
+import com.demin.alexandr.assistant.recycle.viewholder.passes.PassListViewHolder;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -36,12 +35,11 @@ public class PassPresenter extends MvpPresenter<PassView> {
 
     private void inflatePasses() {
         // TODO: 05.03.2019
-        this.passes.add(new UnlimitedPass());
-        this.passes.add(new UnlimitedPass());
-        this.passes.add(new UnlimitedPass());
-        this.passes.add(new UnlimitedPass());
-        this.passes.add(new UnlimitedPass());
-        this.passes.add(new UnlimitedPass());
+        this.passes.add(new Pass());
+        this.passes.add(new Pass());
+        this.passes.add(new Pass());
+        this.passes.add(new Pass());
+        this.passes.add(new Pass());
         getViewState().updatePassList();
     }
 
@@ -55,7 +53,7 @@ public class PassPresenter extends MvpPresenter<PassView> {
 
     public class PassListPresenter {
 
-        public void bindProjectList(int position, PassListViewHolder view) {
+        public void bindList(int position, PassListViewHolder view) {
             if (passes != null) {
                 Pass pass = passes.get(position);
                 if (pass != null) {
@@ -64,7 +62,7 @@ public class PassPresenter extends MvpPresenter<PassView> {
             }
         }
 
-        public int getProjectsCount() {
+        public int getCount() {
             return passes.size();
         }
 
@@ -72,5 +70,8 @@ public class PassPresenter extends MvpPresenter<PassView> {
             // TODO: 06.03.2019
         }
 
+        public void itemPressed() {
+
+        }
     }
 }

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.demin.alexandr.assistant.R;
 import com.demin.alexandr.assistant.mvp.presentation.PassPresenter;
-import com.demin.alexandr.assistant.recycle.viewholder.PassListViewHolder;
+import com.demin.alexandr.assistant.recycle.viewholder.passes.PassListViewHolder;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,12 +31,12 @@ public class PassListAdapter extends RecyclerView.Adapter<PassListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        passListPresenter.bindProjectList(i, viewHolder);
+        passListPresenter.bindList(i, viewHolder);
     }
 
     @Override
     public int getItemCount() {
-        return passListPresenter.getProjectsCount();
+        return passListPresenter.getCount();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements PassListViewHolder {
@@ -49,7 +49,7 @@ public class PassListAdapter extends RecyclerView.Adapter<PassListAdapter.ViewHo
         @OnClick(R.id.item_pass_container)
         @Override
         public void itemPressed() {
-
+            passListPresenter.itemPressed();
         }
     }
 
