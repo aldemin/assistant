@@ -6,7 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.demin.alexandr.assistant.App;
 import com.demin.alexandr.assistant.mvp.view.MainView;
-import com.demin.alexandr.assistant.ui.Screens.MainScreens;
+import com.demin.alexandr.assistant.ui.screens.MainScreens;
 import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;

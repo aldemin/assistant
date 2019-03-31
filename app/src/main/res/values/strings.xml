@@ -18,4 +18,8 @@
     <string name="remember_password">Remember password</string>
     <string name="my_templates">My templates</string>
     <string name="passes">Passes</string>
+    <string name="i_am_a_teacher">I\'am a teacher</string>
+    <string name="last_name">Last Name</string>
+    <string name="you_have_no_templates">You have no templates</string>
+    <string name="please_wait_loading">Please wait. Loading</string>
 </resources>

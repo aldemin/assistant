@@ -4,7 +4,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.demin.alexandr.assistant.App;
 import com.demin.alexandr.assistant.mvp.view.MainFragmentView;
-import com.demin.alexandr.assistant.ui.Screens.TabScreens;
+import com.demin.alexandr.assistant.ui.screens.TabScreens;
 import com.demin.alexandr.assistant.utils.ToolbarManager;
 
 import javax.inject.Inject;

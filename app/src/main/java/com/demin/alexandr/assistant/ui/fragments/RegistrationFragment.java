@@ -24,8 +24,10 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
     @InjectPresenter
     RegistrationPresenter presenter;
 
-    @BindView(R.id.fr_registration_field_name)
-    EditText fieldName;
+    @BindView(R.id.fr_registration_field_first_name)
+    EditText fieldFirstName;
+    @BindView(R.id.fr_registration_field_last_name)
+    EditText fieldLastName;
     @BindView(R.id.fr_registration_field_email)
     EditText fieldEmail;
     @BindView(R.id.fr_registration_field_password)
@@ -67,7 +69,9 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
     @OnClick(R.id.fr_registration_btn_register)
     @Override
     public void registrationPressed() {
-        presenter.registrationPressed(fieldEmail.getText().toString(),
+        presenter.registrationPressed(fieldFirstName.getText().toString(),
+                fieldLastName.getText().toString(),
+                fieldEmail.getText().toString(),
                 fieldPassword.getText().toString(),
                 fieldPasswordConfirm.getText().toString());
     }

@@ -30,7 +30,7 @@ public class PassFragment extends MvpAppCompatFragment implements PassView {
     @BindView(R.id.fr_pass_list)
     RecyclerView passList;
 
-    private PassListAdapter passListAdapter;
+    private PassListAdapter adapter;
 
     public static PassFragment newInstance() {
         return new PassFragment();
@@ -47,13 +47,13 @@ public class PassFragment extends MvpAppCompatFragment implements PassView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pass, container, false);
         ButterKnife.bind(this, view);
-        initPassList();
+        initAdapter();
         return view;
     }
 
-    private void initPassList() {
-        passListAdapter = new PassListAdapter(presenter.getPassListPresenter());
-        passList.setAdapter(passListAdapter);
+    private void initAdapter() {
+        adapter = new PassListAdapter(presenter.getPassListPresenter());
+        passList.setAdapter(adapter);
         passList.setLayoutManager(new LinearLayoutManager(getContext()));
         passList.setItemAnimator(new DefaultItemAnimator());
     }
@@ -66,6 +66,6 @@ public class PassFragment extends MvpAppCompatFragment implements PassView {
 
     @Override
     public void updatePassList() {
-        passListAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 }

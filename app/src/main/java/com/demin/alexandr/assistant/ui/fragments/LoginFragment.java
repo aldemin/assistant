@@ -16,6 +16,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.demin.alexandr.assistant.R;
 import com.demin.alexandr.assistant.mvp.presentation.LoginPresenter;
 import com.demin.alexandr.assistant.mvp.view.LoginView;
+import com.demin.alexandr.assistant.ui.dialogs.LoadingDialog;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -43,6 +44,7 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView {
     String rememberMeTag;
 
     private View view;
+    private LoadingDialog loadingDialog;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -68,6 +70,7 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_login, container, false);
+        initLoadingDialog();
         ButterKnife.bind(this, view);
         return view;
     }
@@ -102,4 +105,20 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView {
     public void showErrorMessage(String message) {
         Snackbar.make(this.view, message, Snackbar.LENGTH_LONG).show();
     }
+
+    @Override
+    public void showLoadingDialog() {
+        loadingDialog.show(getFragmentManager(), "loading");
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        loadingDialog.dismiss();
+    }
+
+    void initLoadingDialog() {
+        loadingDialog = new LoadingDialog();
+        loadingDialog.setCancelable(false);
+    }
+
 }
