@@ -1,4 +1,4 @@
-package com.demin.alexandr.assistant.ui.fragments;
+package com.demin.alexandr.assistant.ui.fragments.teacher;
 
 
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.demin.alexandr.assistant.App;
 import com.demin.alexandr.assistant.R;
-import com.demin.alexandr.assistant.mvp.presentation.MainFragmentPresenter;
-import com.demin.alexandr.assistant.mvp.view.MainFragmentView;
+import com.demin.alexandr.assistant.mvp.presentation.fragments.teacher.MainTeacherFragmentPresenter;
+import com.demin.alexandr.assistant.mvp.view.fragments.teacher.MainTeacherFragmentView;
 import com.demin.alexandr.assistant.subnavigation.LocalNavigatorHolder;
 
 import javax.inject.Inject;
@@ -25,9 +25,9 @@ import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.Router;
 import ru.terrakok.cicerone.android.support.SupportAppNavigator;
 
-public class MainFragment extends MvpAppCompatFragment implements MainFragmentView {
+public class MainTeacherFragment extends MvpAppCompatFragment implements MainTeacherFragmentView {
 
-    public static final String NAME = "MainFragment";
+    public static final String NAME = "MainTeacherFragment";
 
     private Navigator navigator;
 
@@ -38,26 +38,26 @@ public class MainFragment extends MvpAppCompatFragment implements MainFragmentVi
     LocalNavigatorHolder localNavigatorHolder;
 
     @InjectPresenter
-    MainFragmentPresenter presenter;
+    MainTeacherFragmentPresenter presenter;
 
     @ProvidePresenter
-    public MainFragmentPresenter mainFragmentPresenter() {
-        return new MainFragmentPresenter(localNavigatorHolder.getCicerone(NAME).getRouter());
+    public MainTeacherFragmentPresenter mainFragmentPresenter() {
+        return new MainTeacherFragmentPresenter(localNavigatorHolder.getCicerone(NAME).getRouter());
     }
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static MainTeacherFragment newInstance() {
+        return new MainTeacherFragment();
     }
 
-    public static MainFragment newInstance(Bundle args) {
-        MainFragment fragment = new MainFragment();
+    public static MainTeacherFragment newInstance(Bundle args) {
+        MainTeacherFragment fragment = new MainTeacherFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        App.getInstance().getAppComponent().inject(MainFragment.this);
+        App.getInstance().getAppComponent().inject(MainTeacherFragment.this);
         super.onCreate(savedInstanceState);
     }
 
@@ -65,7 +65,7 @@ public class MainFragment extends MvpAppCompatFragment implements MainFragmentVi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_teacher, container, false);
         ButterKnife.bind(this, view);
         initBottomBar();
         return view;

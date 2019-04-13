@@ -1,10 +1,10 @@
-package com.demin.alexandr.assistant.mvp.presentation;
+package com.demin.alexandr.assistant.mvp.presentation.fragments.teacher;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.demin.alexandr.assistant.App;
 import com.demin.alexandr.assistant.mvp.model.entity.Pass;
-import com.demin.alexandr.assistant.mvp.view.PassView;
+import com.demin.alexandr.assistant.mvp.view.fragments.teacher.PassView;
 import com.demin.alexandr.assistant.recycle.viewholder.passes.PassListViewHolder;
 import com.google.firebase.firestore.FirebaseFirestore;
 

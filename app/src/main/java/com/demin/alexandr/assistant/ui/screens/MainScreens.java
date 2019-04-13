@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.demin.alexandr.assistant.ui.fragments.LoginFragment;
-import com.demin.alexandr.assistant.ui.fragments.MainFragment;
 import com.demin.alexandr.assistant.ui.fragments.RegistrationFragment;
+import com.demin.alexandr.assistant.ui.fragments.student.MainStudentFragment;
+import com.demin.alexandr.assistant.ui.fragments.teacher.MainTeacherFragment;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
@@ -53,23 +54,43 @@ public class MainScreens {
         }
     }
 
-    public static class MainFragmentScreen extends SupportAppScreen {
+    public static class MainTeacherFragmentScreen extends SupportAppScreen {
 
         private Bundle bundle;
 
-        public MainFragmentScreen() {
+        public MainTeacherFragmentScreen() {
         }
 
-        public MainFragmentScreen(Bundle bundle) {
+        public MainTeacherFragmentScreen(Bundle bundle) {
             this.bundle = bundle;
         }
 
         @Override
         public Fragment getFragment() {
             if (this.bundle != null) {
-                return MainFragment.newInstance(this.bundle);
+                return MainTeacherFragment.newInstance(this.bundle);
             }
-            return MainFragment.newInstance();
+            return MainTeacherFragment.newInstance();
+        }
+    }
+
+    public static class MainStudentFragmentScreen extends SupportAppScreen {
+
+        private Bundle bundle;
+
+        public MainStudentFragmentScreen() {
+        }
+
+        public MainStudentFragmentScreen(Bundle bundle) {
+            this.bundle = bundle;
+        }
+
+        @Override
+        public Fragment getFragment() {
+            if (this.bundle != null) {
+                return MainStudentFragment.newInstance(this.bundle);
+            }
+            return MainStudentFragment.newInstance();
         }
     }
 }

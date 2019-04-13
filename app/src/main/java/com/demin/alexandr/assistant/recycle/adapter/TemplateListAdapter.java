@@ -1,6 +1,7 @@
 package com.demin.alexandr.assistant.recycle.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.demin.alexandr.assistant.R;
-import com.demin.alexandr.assistant.mvp.presentation.TemplatePresenter;
+import com.demin.alexandr.assistant.mvp.model.entity.Template;
+import com.demin.alexandr.assistant.mvp.presentation.fragments.teacher.TemplatePresenter;
 import com.demin.alexandr.assistant.recycle.viewholder.templates.TemplateListViewHolder;
 import com.google.firebase.Timestamp;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TemplateListAdapter extends RecyclerView.Adapter<TemplateListAdapter.ViewHolder> {
 
@@ -48,19 +51,34 @@ public class TemplateListAdapter extends RecyclerView.Adapter<TemplateListAdapte
         @BindView(R.id.item_template_days_to_freeze)
         TextView daysToFreeze;
         @BindView(R.id.item_template_quantity_of_visits)
-        TextView quattityOfVisits;
+        TextView quantityOfVisits;
         @BindView(R.id.item_template_quantity_to_skip)
-        TextView quattityToSkip;
+        TextView quantityToSkip;
         @BindView(R.id.item_template_expiry_date)
         TextView expiryDate;
         @BindView(R.id.item_template_start_date)
         TextView startDate;
         @BindView(R.id.item_template_unlimited)
         TextView unlimited;
+        @BindView(R.id.item_template_container)
+        CardView container;
+
+        private String ownerId;
+        private String id;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        public void setOwnerId(String ownerId) {
+            this.ownerId = ownerId;
+        }
+
+        @Override
+        public void setId(String id) {
+            this.id = id;
         }
 
         @Override
@@ -75,27 +93,42 @@ public class TemplateListAdapter extends RecyclerView.Adapter<TemplateListAdapte
 
         @Override
         public void setQuantityOfVisits(long quantityOfVisits) {
-            this.quattityOfVisits.setText(String.valueOf(quantityOfVisits));
+            this.quantityOfVisits.setText(String.valueOf(quantityOfVisits));
         }
 
         @Override
         public void setQuantityToSkip(long quantityToSkip) {
-            this.quattityToSkip.setText(String.valueOf(quantityToSkip));
+            this.quantityToSkip.setText(String.valueOf(quantityToSkip));
         }
 
         @Override
         public void setExpiryDate(Timestamp expiryDate) {
-            this.expiryDate.setText(expiryDate.toDate().toString());
+            this.expiryDate.setText(presenter.getDateParser().dateToString(expiryDate.toDate()));
         }
 
         @Override
         public void setStartDate(Timestamp startDate) {
-            this.startDate.setText(startDate.toDate().toString());
+            this.startDate.setText(presenter.getDateParser().dateToString(startDate.toDate()));
         }
 
         @Override
         public void setUnlimited(boolean unlimited) {
             this.unlimited.setText(String.valueOf(unlimited));
+        }
+
+        @OnClick(R.id.item_template_container)
+        public void itemPressed() {
+            Template template = new Template();
+            template.setId(id);
+            template.setOwnerId(ownerId);
+            template.setUnlimited(Boolean.valueOf(unlimited.getText().toString()));
+            template.setStartDate(new Timestamp(presenter.getDateParser().stringToDate(startDate.getText().toString())));
+            template.setExpiryDate(new Timestamp(presenter.getDateParser().stringToDate(expiryDate.getText().toString())));
+            template.setTitle(title.getText().toString());
+            template.setDaysToFreeze(Long.parseLong(daysToFreeze.getText().toString()));
+            template.setQuantityOfVisits(Long.parseLong(quantityOfVisits.getText().toString()));
+            template.setQuantityToSkip(Long.parseLong(quantityToSkip.getText().toString()));
+            presenter.itemPressed(template);
         }
     }
 }

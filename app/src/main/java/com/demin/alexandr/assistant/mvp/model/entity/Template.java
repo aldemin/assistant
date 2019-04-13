@@ -13,6 +13,8 @@ public class Template {
     public static final String TEMPLATE_START_DATE_FIELD_KEY = "start_date";
     public static final String TEMPLATE_TITLE_FIELD_KEY = "title";
     public static final String TEMPLATE_UNLIMITED_FIELD_KEY = "unlimited";
+    public static final String TEMPLATE_ID_KEY = "id";
+    public static final String TEMPLATE_OWNER_ID_KEY = "owner_id";
 
     private String ownerId;
     private String id;

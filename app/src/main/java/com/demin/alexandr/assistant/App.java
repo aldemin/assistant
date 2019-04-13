@@ -5,7 +5,6 @@ import android.app.Application;
 import com.demin.alexandr.assistant.di.AppComponent;
 import com.demin.alexandr.assistant.di.DaggerAppComponent;
 import com.demin.alexandr.assistant.di.modules.AppModule;
-import com.demin.alexandr.assistant.di.modules.AppSettingsModule;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 import io.paperdb.Paper;
@@ -23,7 +22,6 @@ public class App extends Application {
 
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
-                .appSettingsModule(new AppSettingsModule(this))
                 .build();
     }
 

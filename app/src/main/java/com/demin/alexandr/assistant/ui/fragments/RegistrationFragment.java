@@ -3,9 +3,11 @@ package com.demin.alexandr.assistant.ui.fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -34,8 +36,11 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
     EditText fieldPassword;
     @BindView(R.id.fr_registration_field_password_confirm)
     EditText fieldPasswordConfirm;
+    @BindView(R.id.fr_registration_checkbox_teacher)
+    CheckBox isTeacherCheckBox;
 
     private View view;
+    private AlertDialog loadingDialog;
 
     public static RegistrationFragment newInstance() {
         return new RegistrationFragment();
@@ -56,6 +61,7 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_registration, container, false);
+        initLoadingDialog();
         ButterKnife.bind(this, view);
         return view;
     }
@@ -73,7 +79,8 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
                 fieldLastName.getText().toString(),
                 fieldEmail.getText().toString(),
                 fieldPassword.getText().toString(),
-                fieldPasswordConfirm.getText().toString());
+                fieldPasswordConfirm.getText().toString(),
+                isTeacherCheckBox.isChecked());
     }
 
     @OnClick(R.id.fr_registration_btn_cancel)
@@ -87,4 +94,20 @@ public class RegistrationFragment extends MvpAppCompatFragment implements Regist
         Snackbar.make(this.view, message, Snackbar.LENGTH_LONG).show();
     }
 
+    @Override
+    public void showLoadingDialog() {
+        loadingDialog.show();
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        loadingDialog.hide();
+    }
+
+    private void initLoadingDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(R.layout.dialog_loading);
+        builder.setCancelable(false);
+        loadingDialog = builder.create();
+    }
 }

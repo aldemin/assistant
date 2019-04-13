@@ -1,5 +1,6 @@
 package com.demin.alexandr.assistant.di.modules;
 
+import com.demin.alexandr.assistant.mvp.model.parser.DateParser;
 import com.demin.alexandr.assistant.mvp.model.parser.FirebaseDocumentsParser;
 import com.demin.alexandr.assistant.mvp.model.parser.FirebaseUserParser;
 
@@ -22,6 +23,12 @@ public class ParserModule {
     @Singleton
     public FirebaseUserParser firebaseUserParser() {
         return new FirebaseUserParser();
+    }
+
+    @Provides
+    @Singleton
+    public DateParser dateParser() {
+        return new DateParser();
     }
 
 }

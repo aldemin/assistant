@@ -10,7 +10,7 @@ import io.reactivex.Single;
 public interface Authentication {
     Single<User> getCurrentUser();
     Completable deleteUser();
-    Completable singIn(Context context, String email, String password);
+    Single<String> singIn(Context context, String email, String password);
     Completable singOut();
     Completable registration(Context context, String email, String password);
 }

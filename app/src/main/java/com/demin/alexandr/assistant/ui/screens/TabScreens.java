@@ -3,8 +3,8 @@ package com.demin.alexandr.assistant.ui.screens;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.demin.alexandr.assistant.ui.fragments.PassFragment;
-import com.demin.alexandr.assistant.ui.fragments.TemplateFragment;
+import com.demin.alexandr.assistant.ui.fragments.teacher.PassFragment;
+import com.demin.alexandr.assistant.ui.fragments.teacher.TemplateFragment;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 

@@ -1,4 +1,4 @@
-package com.demin.alexandr.assistant.mvp.view;
+package com.demin.alexandr.assistant.mvp.view.fragments.teacher;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;

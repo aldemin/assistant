@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="400dp"
     android:layout_height="400dp"
-    tools:context=".ui.dialogs.TemplateEditDialog">
+    tools:context=".ui.dialogs.edittemplate.TemplateEditDialog">
 
     <FrameLayout
         android:id="@+id/template_edit_dialog_main_container"
