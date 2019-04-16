@@ -56,32 +56,47 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView> {
         this.context = null;
     }
 
-    public void registrationPressed(String firstName, String lastName, String email, String password, String passwordConfirm) {
+    public void registrationPressed(String firstName,
+                                    String lastName,
+                                    String email,
+                                    String password,
+                                    String passwordConfirm,
+                                    boolean isTeacher) {
         if (email.trim().equals(this.emptyString) || password.trim().equals(this.emptyString)) {
             showErrorMessage("Email or password is empty");
         }
         if (!password.equals(passwordConfirm)) {
             showErrorMessage("Password");
         } else {
-            addNewUserToFirebase(firstName, lastName, email, password);
+            showLoadingDialog();
+            addNewUserToFirebase(firstName, lastName, email, password, isTeacher);
         }
     }
 
 
     @SuppressLint("CheckResult")
-    private void addNewUserToFirebase(String firstName, String lastName, String email, String password) {
+    private void addNewUserToFirebase(String firstName, String lastName, String email, String password, boolean isTeacher) {
         authentication.registration(context, email, password)
                 .andThen(authentication.getCurrentUser())
                 .flatMapCompletable(user -> {
                     user.setFirstName(firstName);
                     user.setLastName(lastName);
+                    user.setTeacher(isTeacher);
                     return firebaseRepository.addNewUser(user);
                 })
-                .doOnComplete(this::moveToMainFragment)
+                .doOnComplete(() -> {
+                    hideLoadingDialog();
+                    if (isTeacher) {
+                        moveToMainTeacherFragment();
+                    } else {
+                        moveToMainStudentFragment();
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(mainThread)
                 .subscribe(() -> {
                 }, throwable -> {
+                    hideLoadingDialog();
                     showErrorMessage(throwable.getMessage());
                     authentication.deleteUser()
                             .subscribeOn(Schedulers.io())
@@ -97,8 +112,20 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView> {
         router.backTo(new MainScreens.LoginFragmentScreen());
     }
 
-    private void moveToMainFragment() {
-        router.newRootScreen(new MainScreens.MainFragmentScreen());
+    private void moveToMainTeacherFragment() {
+        router.newRootScreen(new MainScreens.MainTeacherFragmentScreen());
+    }
+
+    private void moveToMainStudentFragment() {
+        router.newRootScreen(new MainScreens.MainStudentFragmentScreen());
+    }
+
+    private void showLoadingDialog() {
+        getViewState().showLoadingDialog();
+    }
+
+    private void hideLoadingDialog() {
+        getViewState().hideLoadingDialog();
     }
 
 }

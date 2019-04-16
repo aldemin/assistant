@@ -41,13 +41,12 @@ public class FirebaseAuthentication implements Authentication {
     }
 
     @Override
-    public Completable singIn(Context context, String email, String password) {
-        return Completable.create(emitter -> {
-
+    public Single<String> singIn(Context context, String email, String password) {
+        return Single.create(emitter -> {
             firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Activity) context, task -> {
                         if (task.isSuccessful()) {
-                            emitter.onComplete();
+                            emitter.onSuccess(task.getResult().getUser().getUid());
                         } else {
                             emitter.onError(task.getException());
                         }

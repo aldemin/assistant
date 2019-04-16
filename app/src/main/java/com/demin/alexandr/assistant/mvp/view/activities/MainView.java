@@ -1,4 +1,4 @@
-package com.demin.alexandr.assistant.mvp.view;
+package com.demin.alexandr.assistant.mvp.view.activities;
 
 import com.arellomobile.mvp.MvpView;
 

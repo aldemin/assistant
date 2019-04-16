@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.demin.alexandr.assistant.R;
-import com.demin.alexandr.assistant.mvp.presentation.PassPresenter;
+import com.demin.alexandr.assistant.mvp.presentation.fragments.teacher.PassPresenter;
 import com.demin.alexandr.assistant.recycle.viewholder.passes.PassListViewHolder;
 
 import butterknife.ButterKnife;

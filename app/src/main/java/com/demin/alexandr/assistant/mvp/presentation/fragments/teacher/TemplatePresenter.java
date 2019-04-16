@@ -1,4 +1,4 @@
-package com.demin.alexandr.assistant.mvp.presentation;
+package com.demin.alexandr.assistant.mvp.presentation.fragments.teacher;
 
 import android.annotation.SuppressLint;
 
@@ -7,8 +7,9 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.demin.alexandr.assistant.App;
 import com.demin.alexandr.assistant.mvp.model.auth.Authentication;
 import com.demin.alexandr.assistant.mvp.model.entity.Template;
+import com.demin.alexandr.assistant.mvp.model.parser.DateParser;
 import com.demin.alexandr.assistant.mvp.model.repository.Repository;
-import com.demin.alexandr.assistant.mvp.view.TemplateView;
+import com.demin.alexandr.assistant.mvp.view.fragments.teacher.TemplateView;
 import com.demin.alexandr.assistant.recycle.viewholder.templates.TemplateListViewHolder;
 
 import java.util.ArrayList;
@@ -69,9 +70,20 @@ public class TemplatePresenter extends MvpPresenter<TemplateView> {
         getViewState().hideTemplateList();
     }
 
+    public void showAddTemplateDialog() {
+        getViewState().showAddTemplateDialog();
+    }
+
+    public void showEditTemplateDialog(Template template) {
+        getViewState().showEditTemplateDialog(template);
+    }
+
+    public void hideAddTemplateDialog() {
+        getViewState().hideAddTemplateDialog();
+    }
 
     @SuppressLint("CheckResult")
-    private void loadTemplates() {
+    public void loadTemplates() {
         hideTemplateList();
         hideEmptyList();
         showLoading();
@@ -88,19 +100,34 @@ public class TemplatePresenter extends MvpPresenter<TemplateView> {
                         templateList = templates;
                         getViewState().updateTemplatesList();
                     }
-                }, throwable -> { });
+                }, throwable -> {
+                    // TODO: 02.04.2019
+                });
     }
 
     public TemplatesListPresenter getTemplatesListPresenter() {
         return templatesListPresenter;
     }
 
+    public void fabPressed() {
+        showAddTemplateDialog();
+    }
+
     public class TemplatesListPresenter {
+
+        @Inject
+        DateParser dateParser;
+
+        public TemplatesListPresenter() {
+            App.getInstance().getAppComponent().inject(TemplatesListPresenter.this);
+        }
 
         public void bindList(int position, TemplateListViewHolder view) {
             if (templateList != null) {
                 Template template = templateList.get(position);
                 if (template != null) {
+                    view.setOwnerId(template.getOwnerId());
+                    view.setId(template.getId());
                     view.setTitle(template.getTitle());
                     view.setDaysToFreeze(template.getDaysToFreeze());
                     view.setExpiryDate(template.getExpiryDate());
@@ -112,6 +139,10 @@ public class TemplatePresenter extends MvpPresenter<TemplateView> {
             }
         }
 
+        public DateParser getDateParser() {
+            return dateParser;
+        }
+
         public int getCount() {
             return templateList.size();
         }
@@ -120,8 +151,8 @@ public class TemplatePresenter extends MvpPresenter<TemplateView> {
             // TODO: 06.03.2019
         }
 
-        public void itemPressed() {
-
+        public void itemPressed(Template template) {
+            showEditTemplateDialog(template);
         }
     }
 }

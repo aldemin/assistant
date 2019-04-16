@@ -1,5 +1,6 @@
 package com.demin.alexandr.assistant.mvp.model.repository;
 
+import com.demin.alexandr.assistant.mvp.model.entity.Pass;
 import com.demin.alexandr.assistant.mvp.model.entity.Template;
 import com.demin.alexandr.assistant.mvp.model.entity.User;
 
@@ -18,8 +19,6 @@ public interface Repository {
 
     Completable updateUserData(User user);
 
-    Single<List<Template>> getTemplates(User user);
-
     Single<List<Template>> getTemplates(String uid);
 
     Completable addNewTemplate(Template template);
@@ -27,5 +26,13 @@ public interface Repository {
     Completable deleteTemplate(Template template);
 
     Completable updateTemplateData(Template template);
+
+    Single<List<Pass>> getPasses(String uid);
+
+    Completable addNewPass(Pass pass);
+
+    Completable deletePass(Pass pass);
+
+    Completable updatePassData(Pass pass);
 
 }

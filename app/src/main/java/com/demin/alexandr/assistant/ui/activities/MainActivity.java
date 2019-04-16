@@ -2,14 +2,15 @@ package com.demin.alexandr.assistant.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.demin.alexandr.assistant.App;
 import com.demin.alexandr.assistant.R;
-import com.demin.alexandr.assistant.mvp.presentation.MainPresenter;
-import com.demin.alexandr.assistant.mvp.view.MainView;
+import com.demin.alexandr.assistant.mvp.presentation.activities.MainPresenter;
+import com.demin.alexandr.assistant.mvp.view.activities.MainView;
 import com.demin.alexandr.assistant.utils.ToolbarManager;
 
 import javax.inject.Inject;
@@ -50,9 +51,19 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             presenter.backPressed();
+        } else if (item.getItemId() == R.id.toolbar_menu_settings) {
+            presenter.settingsPressed();
+        } else if (item.getItemId() == R.id.toolbar_menu_change_workspace) {
+            presenter.changePressed();
         }
         return super.onOptionsItemSelected(item);
     }

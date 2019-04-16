@@ -4,6 +4,7 @@ package com.demin.alexandr.assistant.ui.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.demin.alexandr.assistant.R;
 import com.demin.alexandr.assistant.mvp.presentation.LoginPresenter;
 import com.demin.alexandr.assistant.mvp.view.LoginView;
-import com.demin.alexandr.assistant.ui.dialogs.LoadingDialog;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -44,7 +44,7 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView {
     String rememberMeTag;
 
     private View view;
-    private LoadingDialog loadingDialog;
+    private AlertDialog loadingDialog;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -108,17 +108,19 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView {
 
     @Override
     public void showLoadingDialog() {
-        loadingDialog.show(getFragmentManager(), "loading");
+        loadingDialog.show();
     }
 
     @Override
     public void hideLoadingDialog() {
-        loadingDialog.dismiss();
+        loadingDialog.hide();
     }
 
-    void initLoadingDialog() {
-        loadingDialog = new LoadingDialog();
-        loadingDialog.setCancelable(false);
+    private void initLoadingDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(R.layout.dialog_loading);
+        builder.setCancelable(false);
+        loadingDialog = builder.create();
     }
 
 }

@@ -11,13 +11,15 @@ import com.demin.alexandr.assistant.di.modules.ParserModule;
 import com.demin.alexandr.assistant.di.modules.RepositoriesModule;
 import com.demin.alexandr.assistant.di.modules.ToolbarModule;
 import com.demin.alexandr.assistant.mvp.presentation.LoginPresenter;
-import com.demin.alexandr.assistant.mvp.presentation.MainFragmentPresenter;
-import com.demin.alexandr.assistant.mvp.presentation.MainPresenter;
-import com.demin.alexandr.assistant.mvp.presentation.PassPresenter;
 import com.demin.alexandr.assistant.mvp.presentation.RegistrationPresenter;
-import com.demin.alexandr.assistant.mvp.presentation.TemplatePresenter;
+import com.demin.alexandr.assistant.mvp.presentation.activities.MainPresenter;
+import com.demin.alexandr.assistant.mvp.presentation.fragments.student.MainStudentFragmentPresenter;
+import com.demin.alexandr.assistant.mvp.presentation.fragments.teacher.MainTeacherFragmentPresenter;
+import com.demin.alexandr.assistant.mvp.presentation.fragments.teacher.PassPresenter;
+import com.demin.alexandr.assistant.mvp.presentation.fragments.teacher.TemplatePresenter;
 import com.demin.alexandr.assistant.ui.activities.MainActivity;
-import com.demin.alexandr.assistant.ui.fragments.MainFragment;
+import com.demin.alexandr.assistant.ui.dialogs.AddAndEditTemplateDialog;
+import com.demin.alexandr.assistant.ui.fragments.teacher.MainTeacherFragment;
 
 import javax.inject.Singleton;
 
@@ -39,7 +41,9 @@ import dagger.Component;
 public interface AppComponent {
     void inject(MainActivity mainActivity);
 
-    void inject(MainFragment mainFragment);
+    void inject(MainTeacherFragment mainTeacherFragment);
+
+    void inject(AddAndEditTemplateDialog addAndEditTemplateDialog);
 
     void inject(MainPresenter mainPresenter);
 
@@ -51,5 +55,9 @@ public interface AppComponent {
 
     void inject(TemplatePresenter templatePresenter);
 
-    void inject(MainFragmentPresenter mainFragmentPresenter);
+    void inject(TemplatePresenter.TemplatesListPresenter templatesListPresenter);
+
+    void inject(MainTeacherFragmentPresenter mainTeacherFragmentPresenter);
+
+    void inject(MainStudentFragmentPresenter mainTeacherFragmentPresenter);
 }

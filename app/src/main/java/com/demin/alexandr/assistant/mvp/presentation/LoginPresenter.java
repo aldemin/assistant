@@ -2,7 +2,6 @@ package com.demin.alexandr.assistant.mvp.presentation;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -11,8 +10,8 @@ import com.demin.alexandr.assistant.mvp.model.auth.Authentication;
 import com.demin.alexandr.assistant.mvp.model.repository.Repository;
 import com.demin.alexandr.assistant.mvp.view.LoginView;
 import com.demin.alexandr.assistant.ui.screens.MainScreens;
+import com.demin.alexandr.assistant.utils.AppSettings;
 import com.demin.alexandr.assistant.utils.ToolbarManager;
-import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,16 +26,11 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
     @Inject
     Router router;
     @Inject
-    FirebaseAuth firebaseAuth;
-    @Inject
-    SharedPreferences sharedPreferences;
-    @Inject
-    @Named("Remember me")
-    String rememberMeTag;
-    @Inject
     ToolbarManager toolbarManager;
     @Inject
     Authentication authentication;
+    @Inject
+    AppSettings appSettings;
     @Inject
     @Named("firebase")
     Repository firebaseRepository;
@@ -71,11 +65,22 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
         } else {
             showLoadingDialog();
             authentication.singIn(context, email, password)
+                    .flatMap(uid -> firebaseRepository.getUser(uid))
                     .subscribeOn(Schedulers.io())
                     .observeOn(mainThread)
-                    .subscribe(() -> {
+                    .subscribe(user -> {
                         hideLoadingDialog();
-                        moveToMainFragment();
+                        if (isRememberMe) {
+                            appSettings.setRememberMe(true);
+                        }
+                        appSettings.setTeacher(user.isTeacher());
+                        if (user.isTeacher()) {
+                            appSettings.setTeacherWorkspaceMode(true);
+                            moveToMainTeacherScreen();
+                        } else {
+                            appSettings.setTeacherWorkspaceMode(false);
+                            moveToMainStudentScreen();
+                        }
                     }, throwable -> {
                         hideLoadingDialog();
                         showErrorMessage(throwable.getMessage());
@@ -96,8 +101,12 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
 
     }
 
-    private void moveToMainFragment() {
-        router.newRootScreen(new MainScreens.MainFragmentScreen());
+    private void moveToMainTeacherScreen() {
+        router.newRootScreen(new MainScreens.MainTeacherFragmentScreen());
+    }
+
+    private void moveToMainStudentScreen() {
+        router.newRootScreen(new MainScreens.MainStudentFragmentScreen());
     }
 
     private void showLoadingDialog() {

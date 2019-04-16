@@ -1,4 +1,4 @@
-package com.demin.alexandr.assistant.ui.fragments;
+package com.demin.alexandr.assistant.ui.fragments.teacher;
 
 
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.demin.alexandr.assistant.R;
-import com.demin.alexandr.assistant.mvp.presentation.PassPresenter;
-import com.demin.alexandr.assistant.mvp.view.PassView;
+import com.demin.alexandr.assistant.mvp.presentation.fragments.teacher.PassPresenter;
+import com.demin.alexandr.assistant.mvp.view.fragments.teacher.PassView;
 import com.demin.alexandr.assistant.recycle.adapter.PassListAdapter;
 
 import butterknife.BindView;

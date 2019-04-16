@@ -1,5 +1,6 @@
 package com.demin.alexandr.assistant.mvp.model.repository;
 
+import com.demin.alexandr.assistant.mvp.model.entity.Pass;
 import com.demin.alexandr.assistant.mvp.model.entity.Template;
 import com.demin.alexandr.assistant.mvp.model.entity.User;
 import com.demin.alexandr.assistant.mvp.model.parser.FirebaseDocumentsParser;
@@ -89,29 +90,6 @@ public class FirebaseRepository implements Repository {
     }
 
     @Override
-    public Single<List<Template>> getTemplates(User user) {
-        return Single.create(emitter -> firestore.collection(COLLECTION_USERS_TAG)
-                .document(user.getUid())
-                .collection(COLLECTION_TEMPLATES_TAG)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        List<Template> templateList = new ArrayList<>();
-                        if (task.getResult().getDocuments() == null) {
-                            emitter.onSuccess(templateList);
-                        }
-                        for (DocumentSnapshot document : task.getResult().getDocuments()) {
-                            templateList.add(parser.toTemplate(user.getUid(),document.getId(), document.getData()));
-                        }
-                        emitter.onSuccess(templateList);
-                    } else {
-                        emitter.onError(task.getException());
-                    }
-                })
-        );
-    }
-
-    @Override
     public Single<List<Template>> getTemplates(String uid) {
         return Single.create(emitter -> firestore.collection(COLLECTION_USERS_TAG)
                 .document(uid)
@@ -136,7 +114,7 @@ public class FirebaseRepository implements Repository {
 
     @Override
     public Completable addNewTemplate(Template template) {
-        return Completable.create(emitter -> firestore.collection(COLLECTION_TEMPLATES_TAG)
+        return Completable.create(emitter -> firestore.collection(COLLECTION_USERS_TAG)
                 .document(template.getOwnerId())
                 .collection(COLLECTION_TEMPLATES_TAG)
                 .add(parser.templateToMap(template))
@@ -151,7 +129,7 @@ public class FirebaseRepository implements Repository {
 
     @Override
     public Completable deleteTemplate(Template template) {
-        return Completable.create(emitter -> firestore.collection(COLLECTION_TEMPLATES_TAG)
+        return Completable.create(emitter -> firestore.collection(COLLECTION_USERS_TAG)
                 .document(template.getOwnerId())
                 .collection(COLLECTION_TEMPLATES_TAG)
                 .document(template.getId())
@@ -167,7 +145,7 @@ public class FirebaseRepository implements Repository {
 
     @Override
     public Completable updateTemplateData(Template template) {
-        return Completable.create(emitter -> firestore.collection(COLLECTION_TEMPLATES_TAG)
+        return Completable.create(emitter -> firestore.collection(COLLECTION_USERS_TAG)
                 .document(template.getOwnerId())
                 .collection(COLLECTION_TEMPLATES_TAG)
                 .document(template.getId())
@@ -179,5 +157,25 @@ public class FirebaseRepository implements Repository {
                         emitter.onError(task.getException());
                     }
                 }));
+    }
+
+    @Override
+    public Single<List<Pass>> getPasses(String uid) {
+        return null;
+    }
+
+    @Override
+    public Completable addNewPass(Pass pass) {
+        return null;
+    }
+
+    @Override
+    public Completable deletePass(Pass pass) {
+        return null;
+    }
+
+    @Override
+    public Completable updatePassData(Pass pass) {
+        return null;
     }
 }
